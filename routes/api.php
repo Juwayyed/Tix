@@ -10,7 +10,12 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::post('/register', [AuthController::class, 'register']);
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/me', [AuthController::class, 'me']);
+    Route::get('/user', function (Request $request) {
+        return response()->json([
+            'status' => 'success',
+            'data' => $request->user()
+        ]);
+    });
     Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::get('/dashboard/statistics', [DashboardController::class, 'getStatistics']);

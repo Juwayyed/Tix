@@ -21,7 +21,7 @@ class DashboardResource extends JsonResource
             'avg_resolution_time' => $this['avg_resolution_time'],
             'status_distibution' => [
                 'open' => $this['status_distribution']['open'],
-                'onprogress' => $this['status_distribution']['onprogress'],
+                'in_progress' => $this['status_distribution']['in_progress'],
                 'resolved' => $this['status_distribution']['resolved'],
                 'rejected' => $this['status_distribution']['rejected'],
             ],
