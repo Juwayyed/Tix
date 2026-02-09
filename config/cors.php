@@ -19,7 +19,7 @@ return [
 
     'allowed_methods' => ['*'],
 
-    'allowed_origins' => [env('FRONTEND_URL')],
+    'allowed_origins' => ['https://tix-front.netlify.app'],
 
     'allowed_origins_patterns' => [],
 
