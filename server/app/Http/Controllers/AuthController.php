@@ -36,7 +36,7 @@ class AuthController extends Controller
             return response()->json([
                 'message' => 'An error has occured!',
                 'error' => $e -> getMessage()
-            ]);
+            ], 500);
         }
     }
 
@@ -56,21 +56,26 @@ class AuthController extends Controller
         }
 }
 
-public function logout() {
+public function logout(Request $request)
+{
     try {
-        $user = Auth::user();
-        $user->currentAccessToken()->delete();
-        return response()->json([
-                    'message' => 'Logout successful!',
-                    'data' => null
-                ], 200); 
-    } catch (Exception $e) {
-            return response()->json([
-                'message' => 'An error has occured!',
-                'error' => $e -> getMessage()
-            ], 500);
+        $token = $request->user()->currentAccessToken();
+
+        if ($token instanceof \Laravel\Sanctum\PersonalAccessToken) {
+            $token->delete();
         }
+
+        return response()->json([
+            'message' => 'Logout successful!',
+            'data' => null
+        ], 200);
+    } catch (\Throwable $e) {
+        return response()->json([
+            'message' => 'An error has occured!',
+            'error' => $e->getMessage()
+        ], 500);
     }
+}
  
     public function register(RegisterStoreRequest $request) {
         $data = $request->validated();
